@@ -20,6 +20,12 @@ Launches the test runner in the interactive watch mode with coverage.\
 ### `npm run build`
 Builds the app for production to the `build` folder.\
 
+# Работа сайта гифкой
+
+![alt text](login.gif "Login")
+![alt text](registration.gif "Registration")
+![alt text](card_processing.gif "Card processing")
+
 # Техническое задание
 **1.** Создать доску, подобную Trello, с карточками. Приблизительный дизайн можно выбрать здесь.
 
