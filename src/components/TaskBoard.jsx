@@ -1,20 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import "./style.css";
 
-import CardsRequests from "../../services/CardsRequests"
-import StatusRequest from "../../services/StatusRequest";
+import { CardsRequests, StatusRequest} from "../services";
+import UserStorage from '../utils/UserStorage.js';
+import { movingСard } from "../utils/movingСard";
 
-import UserStorage from '../../utils/UserStorage.js';
-import { movingСard } from "../../utils/movingСard";
-
-import TaskBoardItem from "../TaskBoardItem/TaskBoardItem";
-import { setCards } from "../../redux/cardsActions";
+import { TaskBoardItem } from "./";
+import { setCards } from "../redux/cardsActions";
 
 function TaskBoard({onClickToLogout}) {
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [statuses, setStatuses] = React.useState([]); 
-	const [movingTask, setMovingTask] = React.useState(()=>{});
 
 	const dispatch = useDispatch();
 
@@ -31,8 +27,6 @@ function TaskBoard({onClickToLogout}) {
 
 	React.useEffect(() => {
 		if (statuses.length !== 0) {
-			const changeTaskStatuses  = movingСard(statuses)
-			setMovingTask(changeTaskStatuses)
 			setIsLoading(false);
 		}
 	}, [statuses]);
@@ -52,7 +46,7 @@ function TaskBoard({onClickToLogout}) {
 			<div className="board">
 				{
 				!isLoading ? statuses.map((status, index) => (
-						<TaskBoardItem key={index} movingTask={movingTask} statusTitle={status.title} statusValue={status.value}/>
+						<TaskBoardItem key={index} movingTask={movingСard(statuses)} statusTitle={status.title} statusValue={status.value}/>
 					))
 				: <div> loading </div>}
 			</div>

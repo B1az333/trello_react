@@ -1,8 +1,7 @@
 import React from 'react'
-import "./style.css";
-import CardsRequests from "../../services/CardsRequests"
+import { CardsRequests } from "../services"
 
-export function CreateCard({ onChange, status, addingNewTask }) {
+function CreateCard({ onChange, status, addingNewTask }) {
 
 	const [submit,setSubmit] = React.useState(false)
 	const [data,setData] = React.useState({

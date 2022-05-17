@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import "./style.css";
 
-import CardsRequests from "../../services/CardsRequests"
-import { modifyTask } from '../../redux/cardsActions';
+import { CardsRequests } from "../services";
+import { modifyTask } from '../redux/cardsActions';
 
-export function EditCard({isEditing, id, title, description }) {
+function EditCard({isEditing, id, title, description }) {
 	const dispatch = useDispatch();
 
-	const [submit,setSubmit] = useState(false)
-	const [editedData,setEditedData] = useState({
+	const [submit,setSubmit] = React.useState(false)
+	const [editedData,setEditedData] = React.useState({
 		title : title,
 		description : description
 	})

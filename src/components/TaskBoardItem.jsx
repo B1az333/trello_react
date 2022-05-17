@@ -1,10 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import "./style.css";
 
-import TaskCard from "../TaskCard";
-import CreateCard from "../CreateCard";
-import { addCard, removeCard, changeTaskStatus } from '../../redux/cardsActions';
+import { TaskCard, CreateCard} from "./";
+import { addCard, removeCard, changeTaskStatus } from '../redux/cardsActions';
 
 function TaskBoardItem({ statusTitle, statusValue, movingTask }) {
 	const dispatch = useDispatch();
