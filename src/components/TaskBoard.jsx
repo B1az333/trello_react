@@ -23,7 +23,7 @@ function TaskBoard({onClickToLogout}) {
 			setStatuses(responseStatus);
 		}
 		fetchData();
-	}, []);
+	}, []); // eslint-disable-line
 
 	React.useEffect(() => {
 		if (statuses.length !== 0) {

@@ -10,7 +10,6 @@ let user = {
 function RegisterForm({
     onSubmitRegister,
     onClickToLogin,
-    // onClickToBoard,
 }) {
     const [register, setRegister] = React.useState(() => {
         return {
@@ -96,6 +95,7 @@ function RegisterForm({
                     onChange={changeInputRegisterForm}
                     required
                     className="loginform__input"
+                    autoComplete="on"
                 />
                 <label htmlFor="confirm" className="loginform__label">
                     confirm password
@@ -108,6 +108,7 @@ function RegisterForm({
                     onChange={changeInputRegisterForm}
                     required
                     className="loginform__input"
+                    autoComplete="on"
                 />
                 <span className="loginform__buttonwrapper">
                     <button type="submit" className="button loginform__submit">
@@ -125,17 +126,6 @@ function RegisterForm({
                         Log in
                     </button>
                 </p>
-                {/* <p>
-          Don't want register?{" "}
-          <button
-            type="button"
-            onClick={() => {
-              onClickToBoard();
-            }}
-          >
-            Come in!
-          </button>
-        </p> */}
             </form>
         </div>
     );

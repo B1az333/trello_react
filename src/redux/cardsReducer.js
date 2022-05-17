@@ -1,42 +1,38 @@
+import { ADD_CARD, CHANGE_TASK_STATUS, MODIFY_TASK, REMOVE_CARD, SET_CARDS } from "./cardsActions";
+
 const initialState = {
     cards: []
 };
 
 const cardsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_NUMBER': {
-            return {
-                ...state,
-                number: action.payload
-            };
-        }
-        case 'SET_CARDS': {
+        case SET_CARDS: {
             return {
                 ...state,
                 cards: [...action.payload]
             };
         }
-        case 'REMOVE_CARD': {
+        case REMOVE_CARD: {
             const newTasksLists = state.cards.filter((task) => task.id !== action.payload);
             return {
                 ...state,
                 cards: newTasksLists
             };
         }
-        case 'ADD_CARD': {
+        case ADD_CARD: {
             return {
                 ...state,
                 cards: [action.payload, ...state.cards]
             };
         }
-        case 'MODIFY_TASK': {
+        case MODIFY_TASK: {
             const modifiedTasks = state.cards.map( task => task.id===action.payload.id ? action.payload : task)
             return {
                 ...state,
                 cards: modifiedTasks
             };
         }
-        case 'CHANGE_TASK_STATUS': {
+        case CHANGE_TASK_STATUS: {
             const modifiedTasks = state.cards.map( task => task.id===action.payload.id ? action.payload : task)
             return {
                 ...state,

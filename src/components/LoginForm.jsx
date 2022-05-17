@@ -11,7 +11,6 @@ let user = {
 function LoginForm({
     onSubmitLogin,
     onClickToRegistration,
-    // onClickToBoard,
 }) {
     const [login, setLogin] = React.useState(() => {
         return {
@@ -44,9 +43,7 @@ function LoginForm({
             return;
         }
 
-        // localStorage.setItem("user", JSON.stringify(user));
         UserStorage.setUser(user.userToken, user.userName);
-
         onSubmitLogin();
     }
 
@@ -79,6 +76,7 @@ function LoginForm({
                     onChange={changeInputLoginForm}
                     required
                     className="loginform__input"
+                    autoComplete="on"
                 />
                 <span className="loginform__buttonwrapper">
                     <button type="submit" className="button loginform__submit">
@@ -97,18 +95,6 @@ function LoginForm({
                         Start here
                     </button>{' '}
                 </p>
-                {/* <p className="loginform__choising">
-          Don't want login?{" "}
-          <button
-            type="button"
-            onClick={() => {
-              onClickToBoard();
-            }}
-            className="loginform__button"
-          >
-            Come in!
-          </button>
-        </p> */}
             </form>
         </div>
     );
