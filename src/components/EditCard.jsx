@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { CardsRequests } from "../services";
-import { modifyTask } from '../redux/cardsActions';
+import { fetchModifyTask } from '../redux/cardsActions';
 
 function EditCard({isEditing, id, title, description }) {
 	const dispatch = useDispatch();
@@ -22,15 +21,10 @@ function EditCard({isEditing, id, title, description }) {
 
 	function onSubmit(event){
 		event.preventDefault();
-
-		setSubmit(true)
-		CardsRequests.updateCard(id, editedData.title, editedData.description)
-		.then((modifiedCard)=>{
-			isEditing(false);
-			dispatch(modifyTask(modifiedCard));
-		})
+		setSubmit(true);
+		dispatch(fetchModifyTask(id, editedData.title, editedData.description));
+		isEditing(false);
 	}
-
 
 	return (
 		<form onSubmit={onSubmit}> 

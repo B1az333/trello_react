@@ -1,7 +1,8 @@
-import { ADD_CARD, CHANGE_TASK_STATUS, MODIFY_TASK, REMOVE_CARD, SET_CARDS } from "./cardsActions";
+import { ADD_CARD, CHANGE_TASK_STATUS, MODIFY_TASK, REMOVE_CARD, SET_CARDS, SET_LOADED_CARDS } from "./cardsActions";
 
 const initialState = {
-    cards: []
+    cards: [], 
+    isLoadedCards: false
 };
 
 const cardsReducer = (state = initialState, action) => {
@@ -9,7 +10,8 @@ const cardsReducer = (state = initialState, action) => {
         case SET_CARDS: {
             return {
                 ...state,
-                cards: [...action.payload]
+                cards: action.payload,
+                isLoadedCards: true
             };
         }
         case REMOVE_CARD: {
@@ -26,7 +28,7 @@ const cardsReducer = (state = initialState, action) => {
             };
         }
         case MODIFY_TASK: {
-            const modifiedTasks = state.cards.map( task => task.id===action.payload.id ? action.payload : task)
+            const modifiedTasks = state.cards.map( task => task.id === action.payload.id ? action.payload : task)
             return {
                 ...state,
                 cards: modifiedTasks
@@ -37,6 +39,12 @@ const cardsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cards: modifiedTasks
+            };
+        }
+        case SET_LOADED_CARDS: {
+            return {
+                ...state,
+                isLoadedCards: action.payload,
             };
         }
         default:

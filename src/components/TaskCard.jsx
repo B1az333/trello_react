@@ -1,13 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { EditCard } from './';
-import { CardsRequests } from '../services';
+import { fetchRemoveCard } from '../redux/cardsActions';
 
-function TaskCard({ onRemoveCard, task, onStatusChange, movingTask }) {
+function TaskCard({ task, onStatusChange, movingTask }) {
+    const dispatch = useDispatch();
     const [isEditing, setIsEditing] = React.useState(false);
 
     function onClickRemoveCard() {
-        CardsRequests.deleteCard(task.id).then((el) => onRemoveCard(el.id));
+        dispatch(fetchRemoveCard(task.id))
     }
 
     return (

@@ -1,35 +1,23 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { CardsRequests, StatusRequest} from "../services";
 import UserStorage from '../utils/UserStorage.js';
 import { movingСard } from "../utils/movingСard";
 
 import { TaskBoardItem } from "./";
-import { setCards } from "../redux/cardsActions";
+import { fetchCards } from "../redux/cardsActions";
+import { fetchStatuses } from "../redux/statusesActions";
 
 function TaskBoard({onClickToLogout}) {
-	const [isLoading, setIsLoading] = React.useState(true);
-	const [statuses, setStatuses] = React.useState([]); 
-
 	const dispatch = useDispatch();
 
-	React.useEffect(() => {
-		async function fetchData() {
-			const responseCards = await CardsRequests.loadAllCards()
-			dispatch(setCards(responseCards.reverse()));
+	const {statuses, isLoadedStatuses } = useSelector(({ statusesReducer }) => statusesReducer);
+	const isLoadedCards = useSelector(({ cardsReducer }) => cardsReducer.isLoadedCards)
 
-			const responseStatus = await StatusRequest.loadStatuses()
-			setStatuses(responseStatus);
-		}
-		fetchData();
+	React.useEffect(() => {
+		dispatch(fetchStatuses());
+		dispatch(fetchCards());
 	}, []); // eslint-disable-line
-
-	React.useEffect(() => {
-		if (statuses.length !== 0) {
-			setIsLoading(false);
-		}
-	}, [statuses]);
 
 	function toLogout() {
 		UserStorage.removeUser();
@@ -45,7 +33,7 @@ function TaskBoard({onClickToLogout}) {
 			</div>
 			<div className="board">
 				{
-				!isLoading ? statuses.map((status, index) => (
+				isLoadedStatuses && isLoadedCards ? statuses.map((status, index) => (
 						<TaskBoardItem key={index} movingTask={movingСard(statuses)} statusTitle={status.title} statusValue={status.value}/>
 					))
 				: <div> loading </div>}
