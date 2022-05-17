@@ -1,28 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import "./style.css";
-import TaskBoardItem from "../TaskBoardItem/TaskBoardItem";
+
+import CardsRequests from "../../services/CardsRequests"
 import StatusRequest from "../../services/StatusRequest";
+
 import UserStorage from '../../utils/UserStorage.js';
 import { movingСard } from "../../utils/movingСard";
-import CardsRequests from "../../services/CardsRequests"
+
+import TaskBoardItem from "../TaskBoardItem/TaskBoardItem";
+import { setCards } from "../../redux/cardsActions";
 
 function TaskBoard({onClickToLogout}) {
-	const [isLoading, setIsLoading] = useState(true);
-	const [statuses, setStatuses] = useState([]);
-	const [movingTask, setMovingTask] = useState(()=>{});
-	const [tasksList, setTasksList] = useState([]);
+	const [isLoading, setIsLoading] = React.useState(true);
+	const [statuses, setStatuses] = React.useState([]); 
+	const [movingTask, setMovingTask] = React.useState(()=>{});
 
-	useEffect(() => {
+	const dispatch = useDispatch();
+
+	React.useEffect(() => {
 		async function fetchData() {
 			const responseCards = await CardsRequests.loadAllCards()
-			setTasksList(responseCards.reverse())
+			dispatch(setCards(responseCards.reverse()));
+
 			const responseStatus = await StatusRequest.loadStatuses()
 			setStatuses(responseStatus);
 		}
 		fetchData();
 	}, []);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (statuses.length !== 0) {
 			const changeTaskStatuses  = movingСard(statuses)
 			setMovingTask(changeTaskStatuses)
@@ -35,11 +42,6 @@ function TaskBoard({onClickToLogout}) {
 		onClickToLogout(true);
 	}
 
-	function getTaskByStatus(status) {
-		const taskByStatus = tasksList.filter(task=>task.status === status)
-		return taskByStatus
-	}
-
 	return (
 		<>
 			<div className="header">
@@ -50,9 +52,7 @@ function TaskBoard({onClickToLogout}) {
 			<div className="board">
 				{
 				!isLoading ? statuses.map((status, index) => (
-						<TaskBoardItem key={index} changeTaskStatus={movingTask}  
-						tasksList={tasksList} setTasksList={setTasksList} 
-						taskByStatus = {getTaskByStatus(status.value)} {...status} />
+						<TaskBoardItem key={index} movingTask={movingTask} statusTitle={status.title} statusValue={status.value}/>
 					))
 				: <div> loading </div>}
 			</div>

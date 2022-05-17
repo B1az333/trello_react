@@ -1,15 +1,14 @@
-import React, { useState,useEffect} from 'react'
+import React from 'react'
 import "./style.css";
 import CardsRequests from "../../services/CardsRequests"
 
 export function CreateCard({ onChange, status, addingNewTask }) {
 
-	const [submit,setSubmit] = useState(false)
-	const [data,setData] = useState({
+	const [submit,setSubmit] = React.useState(false)
+	const [data,setData] = React.useState({
 		title : '',
 		description : ''
 	})
-
 
 	function handleOpenForm(bool){
 		setData({

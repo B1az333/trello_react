@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import "./style.css";
-import CardsRequests from "../../services/CardsRequests"
 
-export function EditCard({isEditing,id,title,description,isTaskChanged}) {
+import CardsRequests from "../../services/CardsRequests"
+import { modifyTask } from '../../redux/cardsActions';
+
+export function EditCard({isEditing, id, title, description }) {
+	const dispatch = useDispatch();
+
 	const [submit,setSubmit] = useState(false)
 	const [editedData,setEditedData] = useState({
 		title : title,
@@ -22,8 +27,8 @@ export function EditCard({isEditing,id,title,description,isTaskChanged}) {
 		setSubmit(true)
 		CardsRequests.updateCard(id, editedData.title, editedData.description)
 		.then((modifiedCard)=>{
-			isEditing(false)
-			isTaskChanged(modifiedCard)
+			isEditing(false);
+			dispatch(modifyTask(modifiedCard));
 		})
 	}
 

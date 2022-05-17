@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import  EditCard  from '../EditCard';
+import React from 'react';
 import "./style.css";
-import CardsRequests from "../../services/CardsRequests"
 
-export function TaskCard({ handleDelForm, task, isTaskChanged, changeTaskStatus, handleStatusChanged}) {
-	const [isEditing, setIsEditing] = useState(false);
-	function handleClickDel(){
-		CardsRequests.deleteCard(task.id)
-			.then((el)=>handleDelForm(el.id));
-		setIsEditing(false)
+import EditCard  from '../EditCard';
+import CardsRequests from "../../services/CardsRequests";
+
+export function TaskCard({ onRemoveCard, task, onStatusChange, movingTask }) {
+	const [isEditing, setIsEditing] = React.useState(false);
+	
+	function onClickRemoveCard() {
+		CardsRequests.deleteCard(task.id).then( el => onRemoveCard(el.id));
 	}
 
 	return (
 		<div className="card">
 			<button type="button" className="card__icon button card__icon-del" 
-			onClick = {handleClickDel}>x</button>
+			onClick = {onClickRemoveCard}>x</button>
 			{
-				isEditing ? <EditCard isEditing={setIsEditing} isTaskChanged={isTaskChanged}  {...task} />
+				isEditing ? <EditCard isEditing={setIsEditing}  {...task} />
 					:
 					<>
 						<span className="card__title">{task.title}</span>
@@ -29,8 +29,8 @@ export function TaskCard({ handleDelForm, task, isTaskChanged, changeTaskStatus,
 						{
 						(task.status !== 'to_do')	? 
 							<button type="button" name="prev" className="card__button button card__button-prev" onClick={()=>
-								{changeTaskStatus.prev(task.id,task.status)
-									.then((res)=>handleStatusChanged(res))}}>
+								{movingTask.prev(task.id,task.status)
+									.then((res)=>onStatusChange(res))}}>
 								prev
 							</button>
 							: null
@@ -38,8 +38,8 @@ export function TaskCard({ handleDelForm, task, isTaskChanged, changeTaskStatus,
 						{
 						(task.status !== 'done')	? 
 							<button type="button" name="done" className="card__button button card__button-done" onClick={()=>
-							{changeTaskStatus.next(task.id,task.status)
-								.then((res)=>handleStatusChanged(res))}}>
+							{movingTask.next(task.id,task.status)
+								.then((res)=>onStatusChange(res))}}>
 								done
 							</button>
 							: null

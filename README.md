@@ -2,12 +2,12 @@
 
 Данный вебсайт был написан в ходе второй проектной работы от курса компании Parimatch Tech
 
-# Применяемые технологии
+# Stack
 
-- HTML
-- CSS
+- HTML, CSS
 - Javascript
-- React
+- ReactJS + React Hooks
+- Redux (legacy)
 
 ## Available Scripts
 In the project directory, you can run:
