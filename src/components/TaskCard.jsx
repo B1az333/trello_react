@@ -1,23 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import { EditCard } from './';
-import { fetchRemoveCard } from '../redux/cardsActions';
 
-function TaskCard({ task, onStatusChange, movingTask }) {
-    const dispatch = useDispatch();
+function TaskCard({ task, onRemoveCard, onMoveCardRight, onMoveCardLeft }) {
     const [isEditing, setIsEditing] = React.useState(false);
-
-    function onClickRemoveCard() {
-        dispatch(fetchRemoveCard(task.id))
-    }
 
     return (
         <div className="card">
             <button
                 type="button"
                 className="card__icon button card__icon-del"
-                onClick={onClickRemoveCard}>
+                onClick={onRemoveCard}>
                 x
             </button>
             {isEditing ? (
@@ -38,11 +31,7 @@ function TaskCard({ task, onStatusChange, movingTask }) {
                                 type="button"
                                 name="prev"
                                 className="card__button button card__button-prev"
-                                onClick={() => {
-                                    movingTask
-                                        .prev(task.id, task.status)
-                                        .then((res) => onStatusChange(res));
-                                }}>
+                                onClick={onMoveCardLeft}>
                                 prev
                             </button>
                         ) : null}
@@ -51,11 +40,7 @@ function TaskCard({ task, onStatusChange, movingTask }) {
                                 type="button"
                                 name="done"
                                 className="card__button button card__button-done"
-                                onClick={() => {
-                                    movingTask
-                                        .next(task.id, task.status)
-                                        .then((res) => onStatusChange(res));
-                                }}>
+                                onClick={onMoveCardRight}>
                                 done
                             </button>
                         ) : null}

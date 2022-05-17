@@ -56,3 +56,18 @@ export const fetchAddCard = (title, description, status) => async (dispatch) => 
     const newCard = await CardsRequests.addCard(title, description, status);
 	dispatch(addCard(newCard));
 };
+
+export const fetchMoveCardLeft = ({id, status}, statusTypes) => async (dispatch) => {
+    const idStatus = statusTypes.findIndex((statusType) => statusType === status);
+    const newStatus = idStatus !== 0 ? statusTypes[idStatus - 1] : statusTypes[0];
+    const result = await CardsRequests.updateStatusCard(id, newStatus);
+    dispatch(changeTaskStatus(result));
+};
+
+export const fetchMoveCardRight = ({id, status}, statusTypes) => async (dispatch) => {
+    const idStatus = statusTypes.findIndex((statusType) => statusType === status);
+    const newStatus = idStatus !== statusTypes.length - 1 ? statusTypes[idStatus + 1] : statusTypes[statusTypes.length - 1];
+    const result = await CardsRequests.updateStatusCard(id, newStatus);
+    dispatch(changeTaskStatus(result));
+};
+

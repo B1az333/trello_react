@@ -2,7 +2,7 @@ import { ADD_CARD, CHANGE_TASK_STATUS, MODIFY_TASK, REMOVE_CARD, SET_CARDS, SET_
 
 const initialState = {
     cards: [], 
-    isLoadedCards: false
+    isLoadedCards: false,
 };
 
 const cardsReducer = (state = initialState, action) => {
@@ -28,14 +28,14 @@ const cardsReducer = (state = initialState, action) => {
             };
         }
         case MODIFY_TASK: {
-            const modifiedTasks = state.cards.map( task => task.id === action.payload.id ? action.payload : task)
+            const modifiedTasks = state.cards.map( task => task.id === action.payload.id ? action.payload : task);
             return {
                 ...state,
                 cards: modifiedTasks
             };
         }
         case CHANGE_TASK_STATUS: {
-            const modifiedTasks = state.cards.map( task => task.id===action.payload.id ? action.payload : task)
+            const modifiedTasks = state.cards.map( task => task.id === action.payload.id ? action.payload : task);
             return {
                 ...state,
                 cards: modifiedTasks

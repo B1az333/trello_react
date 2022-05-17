@@ -2,20 +2,18 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TaskCard, CreateCard} from "./";
-import { removeCard, changeTaskStatus, fetchAddCard } from '../redux/cardsActions';
+import { fetchAddCard, fetchMoveCardRight, fetchMoveCardLeft, fetchRemoveCard } from '../redux/cardsActions';
 
-function TaskBoardItem({ statusTitle, statusValue, movingTask }) {
+function TaskBoardItem({ statusTitle, statusValue }) {
 	const dispatch = useDispatch();
 	const [isOpened, setIsOpened] = React.useState(false);
 
 	const tasks = useSelector(({ cardsReducer }) => cardsReducer.cards).filter(task => task.status === statusValue);
+	const statusTypes = useSelector(({ statusesReducer }) => statusesReducer.statuses).map(status => status.value);
 
 	function handleRemoveCard(id) {
-		dispatch(removeCard(id))
-	}
-
-	function handleChangeTaskStatus(taskWithNewStatus) {
-		dispatch(changeTaskStatus(taskWithNewStatus))
+		dispatch(fetchRemoveCard(id));
+		console.log(1);
 	}
 
 	function handleAddCard(title, description) {
@@ -24,6 +22,14 @@ function TaskBoardItem({ statusTitle, statusValue, movingTask }) {
 
 	function handleOpenForm(bool){
 		setIsOpened(bool);
+	}
+
+	function handleMoveCardRight(card){
+		dispatch(fetchMoveCardRight(card, statusTypes));
+	}
+
+	function handleMoveCardLeft(card){
+		dispatch(fetchMoveCardLeft(card, statusTypes));
 	}
 
 	return (
@@ -42,7 +48,7 @@ function TaskBoardItem({ statusTitle, statusValue, movingTask }) {
 			</div>
 			{
 				tasks.map((task) => 
-						<TaskCard key={task.id} onRemoveCard = {handleRemoveCard} onStatusChange={handleChangeTaskStatus} movingTask = {movingTask} task = {task}/>)
+						<TaskCard key={task.id} onRemoveCard = {() => handleRemoveCard(task.id)} task = {task} onMoveCardRight={() => handleMoveCardRight(task)} onMoveCardLeft={() => handleMoveCardLeft(task)}/>)
 			}
 		</div>
 	);

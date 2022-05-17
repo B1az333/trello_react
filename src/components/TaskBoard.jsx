@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import UserStorage from '../utils/UserStorage.js';
-import { movingСard } from "../utils/movingСard";
 
 import { TaskBoardItem } from "./";
 import { fetchCards } from "../redux/cardsActions";
@@ -34,7 +33,7 @@ function TaskBoard({onClickToLogout}) {
 			<div className="board">
 				{
 				isLoadedStatuses && isLoadedCards ? statuses.map((status, index) => (
-						<TaskBoardItem key={index} movingTask={movingСard(statuses)} statusTitle={status.title} statusValue={status.value}/>
+						<TaskBoardItem key={index} statusTitle={status.title} statusValue={status.value}/>
 					))
 				: <div> loading </div>}
 			</div>
