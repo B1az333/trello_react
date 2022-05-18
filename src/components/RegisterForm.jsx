@@ -1,16 +1,11 @@
 import React from 'react';
-import { UserRequests } from '../services';
-import UserStorage from '../utils/UserStorage.js';
+import { useDispatch } from 'react-redux';
 
-let user = {
-    userToken: null,
-    userName: null,
-};
+import { fetchRegister } from '../redux/loginActions';
 
-function RegisterForm({
-    onSubmitRegister,
-    onClickToLogin,
-}) {
+function RegisterForm({ onClickToLogin }) {
+    const dispatch = useDispatch();
+
     const [register, setRegister] = React.useState(() => {
         return {
             username: '',
@@ -35,22 +30,7 @@ function RegisterForm({
             return;
         }
 
-        try {
-            await UserRequests.registration(
-                register.username,
-                register.email,
-                register.password,
-            ).then((res) => {
-                console.log(res);
-                user.userToken = res.jwt;
-                user.userName = res.user.username;
-            });
-        } catch (error) {
-            console.log('Something went wrong. Try again');
-        }
-
-        UserStorage.setUser(user.userToken, user.userName);
-        onSubmitRegister();
+        dispatch(fetchRegister(register.username, register.email, register.password));
     }
 
     return (

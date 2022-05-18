@@ -1,17 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-import { UserRequests } from '../services';
-import UserStorage from '../utils/UserStorage.js';
+import { fetchLogin } from '../redux/loginActions';
 
-let user = {
-    userToken: null,
-    userName: null,
-};
+function LoginForm({ onClickToRegistration }) {
+    const dispatch = useDispatch();
 
-function LoginForm({
-    onSubmitLogin,
-    onClickToRegistration,
-}) {
     const [login, setLogin] = React.useState(() => {
         return {
             identifier: '',
@@ -26,25 +20,10 @@ function LoginForm({
         });
     }
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
 
-        try {
-            await UserRequests.login(login.identifier, login.password).then((res) => {
-                user.userToken = res.jwt;
-                user.userName = res.user.username;
-            });
-        } catch (error) {
-            console.log('No such user!');
-        }
-
-        if (!user.userToken) {
-            alert('Invalid login or password');
-            return;
-        }
-
-        UserStorage.setUser(user.userToken, user.userName);
-        onSubmitLogin();
+        dispatch(fetchLogin(login.identifier, login.password));
     }
 
     return (

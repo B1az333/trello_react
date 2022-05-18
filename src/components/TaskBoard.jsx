@@ -1,11 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import UserStorage from '../utils/UserStorage.js';
-
 import { TaskBoardItem } from "./";
 import { fetchCards } from "../redux/cardsActions";
 import { fetchStatuses } from "../redux/statusesActions";
+import { setUnlogined } from "../redux/loginActions.js";
 
 function TaskBoard({onClickToLogout}) {
 	const dispatch = useDispatch();
@@ -19,7 +18,7 @@ function TaskBoard({onClickToLogout}) {
 	}, []); // eslint-disable-line
 
 	function toLogout() {
-		UserStorage.removeUser();
+		dispatch(setUnlogined());
 		onClickToLogout(true);
 	}
 

@@ -1,22 +1,21 @@
-import { useState } from 'react';
-
-import { LoginForm, RegisterForm, TaskBoard } from './components';
-import UserStorage from './utils/UserStorage';
+import React from "react";
+import { useSelector } from 'react-redux';
 import './styles/style.css';
 
+import { LoginForm, RegisterForm, TaskBoard } from './components';
+
 function App() {
-    const hasToken = UserStorage.hasToken();
-    const [isRegister, setIsRegister] = useState(true);
-    const [isLogin, setIsLogin] = useState(hasToken);
+    const isLoginedBefore = useSelector(({ loginReducer }) => loginReducer.isLogined);
+    const [isRegister, setIsRegister] = React.useState(true);
+    const [isLogin, setIsLogin] = React.useState(isLoginedBefore);
 
-    function handleSubmitLogin() {
-        setIsLogin(true);
-    }
-
-    function handleSubmitRegister() {
-        setIsRegister(true);
-    }
-
+    React.useEffect(() => {
+        if(isLoginedBefore){
+            setIsLogin(true);
+            setIsRegister(true);
+        }
+	}, [isLoginedBefore]); // eslint-disable-line
+    
     function handleToggleRegLogin(logined = false) {
         if (!isRegister || logined) {
             setIsRegister(true);
@@ -27,30 +26,17 @@ function App() {
         }
     }
 
-    // temporary function
-
-    // function handleTaskBoard() {
-    //   setIsRegister(true);
-    //   setIsLogin(true);
-    // }
-
-    // temporary function ended
-
     return (
         <>
             {!isRegister && (
                 <RegisterForm
-                    onSubmitRegister={handleSubmitRegister}
                     onClickToLogin={handleToggleRegLogin}
-                    // onClickToBoard={handleTaskBoard}
                 />
             )}
 
             {!isLogin && (
                 <LoginForm
-                    onSubmitLogin={handleSubmitLogin}
                     onClickToRegistration={handleToggleRegLogin}
-                    // onClickToBoard={handleTaskBoard}
                 />
             )}
 

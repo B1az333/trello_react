@@ -13,7 +13,6 @@ function TaskBoardItem({ statusTitle, statusValue }) {
 
 	function handleRemoveCard(id) {
 		dispatch(fetchRemoveCard(id));
-		console.log(1);
 	}
 
 	function handleAddCard(title, description) {

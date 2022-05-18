@@ -15,10 +15,7 @@ export const setLoadedStatuses = (payload) => ({
 });
 
 export const fetchStatuses = () => async (dispatch) => {
-    dispatch({
-        type: SET_LOADED_STATUSES,
-        payload: false,
-    });
+    dispatch(setLoadedStatuses(false));
 
     const responseStatuses = await StatusRequest.loadStatuses();
 	dispatch(setStatuses(responseStatuses));
