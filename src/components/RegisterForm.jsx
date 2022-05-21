@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchRegister } from '../redux/loginActions';
 
-function RegisterForm({ onClickToLogin }) {
+function RegisterForm() {
     const dispatch = useDispatch();
 
     const [register, setRegister] = React.useState(() => {
@@ -96,15 +97,14 @@ function RegisterForm({ onClickToLogin }) {
                     </button>
                 </span>
                 <p className="loginform__choising">
-                    Already have an account?{' '}
-                    <button
-                        type="button"
-                        onClick={() => {
-                            onClickToLogin();
-                        }}
-                        className="button loginform__button">
-                        Log in
-                    </button>
+                    Already have an account?{`\t`}
+                    <Link to={'/login'}>
+                        <button
+                            type="button"
+                            className="button loginform__button">
+                            Log in
+                        </button>
+                    </Link>
                 </p>
             </form>
         </div>

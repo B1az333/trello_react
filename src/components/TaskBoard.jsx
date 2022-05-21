@@ -1,13 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { TaskBoardItem } from "./";
 import { fetchCards } from "../redux/cardsActions";
 import { fetchStatuses } from "../redux/statusesActions";
 import { setUnlogined } from "../redux/loginActions.js";
 
-function TaskBoard({onClickToLogout}) {
+function TaskBoard() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const {statuses, isLoadedStatuses } = useSelector(({ statusesReducer }) => statusesReducer);
 	const isLoadedCards = useSelector(({ cardsReducer }) => cardsReducer.isLoadedCards)
@@ -19,7 +21,7 @@ function TaskBoard({onClickToLogout}) {
 
 	function toLogout() {
 		dispatch(setUnlogined());
-		onClickToLogout(true);
+		navigate('login');
 	}
 
 	return (
