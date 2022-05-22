@@ -33,8 +33,6 @@ body{
 }
 
 .card-create{
-	width:min(80%,60vw);
-	margin:20px auto;
 	color:var(--btn-text-hover-color)
 }
 .card__input{
@@ -111,6 +109,11 @@ body{
 	padding-left: 4%;
 	font-size: var(--fz-status-text);
 	margin-bottom: 0.2rem;
+  }
+
+  .loginform__label span{
+	color: crimson;
+	font-size: 0.8rem;
   }
   
   .loginform__input {

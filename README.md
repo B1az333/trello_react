@@ -8,6 +8,8 @@
 - Javascript
 - ReactJS + React Hooks
 - Redux (legacy)
+- react-router-dom@6
+- react-hook-form
 
 ## Available Scripts
 In the project directory, you can run:

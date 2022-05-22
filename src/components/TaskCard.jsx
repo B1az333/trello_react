@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditCard } from './';
+import { EditCardForm } from './';
 
 function TaskCard({ task, onRemoveCard, onMoveCardRight, onMoveCardLeft }) {
     const [isEditing, setIsEditing] = React.useState(false);
@@ -14,7 +14,7 @@ function TaskCard({ task, onRemoveCard, onMoveCardRight, onMoveCardLeft }) {
                 x
             </button>
             {isEditing ? (
-                <EditCard isEditing={setIsEditing} {...task} />
+                <EditCardForm isEditing={setIsEditing} {...task} />
             ) : (
                 <>
                     <span className="card__title">{task.title}</span>

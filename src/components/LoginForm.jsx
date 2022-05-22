@@ -1,77 +1,50 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 import { fetchLogin } from '../redux/loginActions';
 
 function LoginForm() {
     const dispatch = useDispatch();
 
-    const [login, setLogin] = React.useState(() => {
-        return {
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm({
+        defaultValues: {
             identifier: '',
             password: '',
-        };
+        },
     });
 
-    function changeInputLoginForm(event) {
-        event.persist();
-        setLogin((prev) => {
-            return { ...prev, [event.target.name]: event.target.value };
-        });
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-
-        dispatch(fetchLogin(login.identifier, login.password));
-    }
+    const onSubmit = (data) => {
+        dispatch(fetchLogin(data.identifier, data.password));
+    };
 
     return (
         <div className="form__container">
-            <form onSubmit={handleSubmit} autoComplete="off" className="loginform">
+            <form onSubmit={handleSubmit(onSubmit)} autoComplete="off" className="loginform">
                 <h2 className="loginform__title">Login Form</h2>
-                <label htmlFor="identifier" className="loginform__label">
-                    login
-                </label>
+                <label htmlFor="identifier" className="loginform__label"> 
+                    login {errors?.identifier && <span>{errors?.identifier?.message}</span>} 
+                </label> 
+                <input {...register("identifier", {required: "(This field must not be empty)"})} className="loginform__input" id="identifier" type="text" />
 
-                <input
-                    name="identifier"
-                    id="identifier"
-                    type="text"
-                    value={login.identifier}
-                    onChange={changeInputLoginForm}
-                    required
-                    className="loginform__input"
-                />
-                <label htmlFor="password" className="loginform__label">
-                    password
+                <label htmlFor="password" className="loginform__label"> 
+                    password {errors?.password && <span>{errors?.password?.message}</span>}
                 </label>
+                <input {...register("password", {required: "(This field must not be empty)"})} className="loginform__input" id="password" type="password" autoComplete="on" />
 
-                <input
-                    name="password"
-                    id="password"
-                    type="password"
-                    value={login.password}
-                    onChange={changeInputLoginForm}
-                    required
-                    className="loginform__input"
-                    autoComplete="on"
-                />
                 <span className="loginform__buttonwrapper">
-                    <button type="submit" className="button loginform__submit">
-                        Login
-                    </button>
+                    <input type="submit" className="button loginform__submit" value="Login" />
                 </span>
 
                 <p className="loginform__choising">
                     Don't have an account?{`\t`}
                     <Link to={'/registration'}>
-                        <button
-                            type="button"
-                            className="button loginform__button">
-                            Start here
-                        </button>
+                        <input type="button" className="button loginform__button" value="Start here" />
                     </Link>
                 </p>
             </form>

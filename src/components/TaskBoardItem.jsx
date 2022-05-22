@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { TaskCard, CreateCard} from "./";
+import { TaskCard, CreateCardForm} from "./";
 import { fetchAddCard, fetchMoveCardRight, fetchMoveCardLeft, fetchRemoveCard } from '../redux/cardsActions';
 
 function TaskBoardItem({ statusTitle, statusValue }) {
@@ -34,7 +34,7 @@ function TaskBoardItem({ statusTitle, statusValue }) {
 	return (
 		<div className={`task-board__item item-${statusValue}`}>
 			{
-				isOpened ? <CreateCard onChange={handleOpenForm} onAddCard={handleAddCard}/> : null
+				isOpened ? <CreateCardForm onCloseForm={() => handleOpenForm(false)} onAddCard={handleAddCard}/> : null
 			}
 			<div className={`status status-${statusValue}`}>
 				<span className="item__text">
