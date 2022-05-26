@@ -19,7 +19,7 @@ function TaskBoard() {
 	React.useEffect(() => {
 		dispatch(fetchStatuses());
 		dispatch(fetchCards());
-	}, []); // eslint-disable-line
+	}, [dispatch]);
 
 	function toLogout() {
 		dispatch(setUnlogined());

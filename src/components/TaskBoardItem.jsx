@@ -14,7 +14,6 @@ function TaskBoardItem({ statusTitle, statusValue }) {
 	const tasks = useSelector(selectCards).filter(task => task.status === statusValue);
 	const statusTypes = useSelector(selectStatuses).map(status => status.value);
 
-	console.log("rerender " + statusTitle);
 	function handleAddCard(title, description) {
 		dispatch(fetchAddCard(title, description, statusValue))
 	}
@@ -25,7 +24,7 @@ function TaskBoardItem({ statusTitle, statusValue }) {
 
 	const handleRemoveCard = React.useCallback((id) => {
 		dispatch(fetchRemoveCard(id));
-	}, []); // eslint-disable-line 
+	}, [dispatch]);
 
 	const handleMoveCardRight = React.useCallback((card) => {
 		dispatch(fetchMoveCardRight(card, statusTypes));
@@ -57,4 +56,4 @@ function TaskBoardItem({ statusTitle, statusValue }) {
 	);
 }
 
-export default React.memo(TaskBoardItem);
+export default TaskBoardItem;
