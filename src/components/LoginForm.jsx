@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { fetchLogin } from '../redux/loginActions';
+import { fetchLogin } from '../redux/login/actions';
 
 function LoginForm() {
     const dispatch = useDispatch();

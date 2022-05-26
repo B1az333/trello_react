@@ -1,4 +1,4 @@
-import { CardsRequests } from "../services";
+import { CardsRequests } from "../../services";
 
 export const SET_CARDS = 'SET_CARDS';
 export const REMOVE_CARD = 'REMOVE_CARD';

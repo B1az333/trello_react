@@ -1,11 +1,11 @@
-import { SET_LOADED_STATUSES, SET_STATUSES } from "./statusesActions";
+import { SET_LOADED_STATUSES, SET_STATUSES } from "./actions";
 
 const initialState = {
     statuses: [],
     isLoadedStatuses: false
 };
 
-const statusesReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_STATUSES: {
             return {
@@ -25,4 +25,4 @@ const statusesReducer = (state = initialState, action) => {
     }
 };
 
-export default statusesReducer;
+export default reducer;

@@ -1,11 +1,11 @@
-import { ADD_CARD, CHANGE_TASK_STATUS, MODIFY_TASK, REMOVE_CARD, SET_CARDS, SET_LOADED_CARDS } from "./cardsActions";
+import { ADD_CARD, CHANGE_TASK_STATUS, MODIFY_TASK, REMOVE_CARD, SET_CARDS, SET_LOADED_CARDS } from "./actions";
 
 const initialState = {
     cards: [], 
     isLoadedCards: false,
 };
 
-const cardsReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_CARDS: {
             return {
@@ -52,4 +52,4 @@ const cardsReducer = (state = initialState, action) => {
     }
 };
 
-export default cardsReducer;
+export default reducer;

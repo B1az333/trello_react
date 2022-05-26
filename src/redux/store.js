@@ -1,14 +1,14 @@
 import { legacy_createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import cardsReducer from './cardsReducer';
-import statusesReducer from './statusesReducer';
-import loginReducer from './loginReducer';
+import cardsReducer from './cards/reducer';
+import statusesReducer from './statuses/reducer';
+import loginReducer from './login/reducer';
 
 const rootReducer = combineReducers({
-    cardsReducer,
-    statusesReducer,
-    loginReducer
+    cardsStorage: cardsReducer,
+    statusesStorage: statusesReducer,
+    loginStorage: loginReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

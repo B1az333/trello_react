@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { fetchRegister } from '../redux/loginActions';
+import { fetchRegister } from '../redux/login/actions';
 
 function RegisterForm() {
     const dispatch = useDispatch();

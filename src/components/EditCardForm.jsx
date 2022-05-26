@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { fetchModifyTask } from '../redux/cardsActions';
+import { fetchModifyTask } from '../redux/cards/actions';
 
 function EditCardForm({isEditing, id, title, description }) {
 	const dispatch = useDispatch();

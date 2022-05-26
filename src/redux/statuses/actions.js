@@ -1,4 +1,4 @@
-import { StatusRequest } from "../services";
+import { StatusRequest } from "../../services";
 
 export const SET_STATUSES = 'SET_STATUSES';
 export const SET_LOADED_STATUSES = 'SET_LOADED_STATUSES';

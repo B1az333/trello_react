@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { TaskBoardItem } from "./";
-import { fetchCards } from "../redux/cardsActions";
-import { fetchStatuses } from "../redux/statusesActions";
-import { setUnlogined } from "../redux/loginActions.js";
+import { fetchCards } from "../redux/cards/actions";
+import { fetchStatuses } from "../redux/statuses/actions";
+import { setUnlogined } from "../redux/login/actions";
+import { selectIsLoadedCards } from "../redux/cards/selectors";
+import { selectStatusesStorage } from "../redux/statuses/selectors";
 
 function TaskBoard() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const {statuses, isLoadedStatuses } = useSelector(({ statusesReducer }) => statusesReducer);
-	const isLoadedCards = useSelector(({ cardsReducer }) => cardsReducer.isLoadedCards)
+	const {statuses, isLoadedStatuses } = useSelector(selectStatusesStorage);
+	const isLoadedCards = useSelector(selectIsLoadedCards);
 
 	React.useEffect(() => {
 		dispatch(fetchStatuses());
@@ -27,9 +29,9 @@ function TaskBoard() {
 	return (
 		<>
 			<div className="header">
-			<button className="card__button button exit__button" onClick={toLogout}>
-				Exit
-			</button>
+				<button className="card__button button exit__button" onClick={toLogout}>
+					Exit
+				</button>
 			</div>
 			<div className="board">
 				{

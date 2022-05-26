@@ -1,5 +1,5 @@
-import { UserRequests } from "../services";
-import UserStorage from "../utils/UserStorage";
+import { UserRequests } from "../../services";
+import UserStorage from "../../utils/UserStorage";
 
 export const SET_LOGINED = 'SET_LOGINED';
 export const SET_UNLOGINED = 'SET_UNLOGINED';

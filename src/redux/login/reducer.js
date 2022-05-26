@@ -1,11 +1,11 @@
-import UserStorage from "../utils/UserStorage";
-import { SET_LOGINED, SET_UNLOGINED } from "./loginActions";
+import UserStorage from "../../utils/UserStorage";
+import { SET_LOGINED, SET_UNLOGINED } from "./actions";
 
 const initialState = {
     isLogined: UserStorage.hasToken(),
 };
 
-const loginReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_LOGINED: {
             return {
@@ -25,4 +25,4 @@ const loginReducer = (state = initialState, action) => {
     }
 };
 
-export default loginReducer;
+export default reducer;

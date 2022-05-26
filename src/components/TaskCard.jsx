@@ -10,7 +10,7 @@ function TaskCard({ task, onRemoveCard, onMoveCardRight, onMoveCardLeft }) {
             <button
                 type="button"
                 className="card__icon button card__icon-del"
-                onClick={onRemoveCard}>
+                onClick={() => onRemoveCard(task.id)}>
                 x
             </button>
             {isEditing ? (
@@ -31,7 +31,7 @@ function TaskCard({ task, onRemoveCard, onMoveCardRight, onMoveCardLeft }) {
                                 type="button"
                                 name="prev"
                                 className="card__button button card__button-prev"
-                                onClick={onMoveCardLeft}>
+                                onClick={() => onMoveCardLeft(task)}>
                                 prev
                             </button>
                         ) : null}
@@ -40,7 +40,7 @@ function TaskCard({ task, onRemoveCard, onMoveCardRight, onMoveCardLeft }) {
                                 type="button"
                                 name="done"
                                 className="card__button button card__button-done"
-                                onClick={onMoveCardRight}>
+                                onClick={() => onMoveCardRight(task)}>
                                 done
                             </button>
                         ) : null}
@@ -51,4 +51,4 @@ function TaskCard({ task, onRemoveCard, onMoveCardRight, onMoveCardLeft }) {
     );
 }
 
-export default TaskCard;
+export default React.memo(TaskCard);

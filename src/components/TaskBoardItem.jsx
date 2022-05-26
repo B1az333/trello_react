@@ -2,19 +2,19 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TaskCard, CreateCardForm} from "./";
-import { fetchAddCard, fetchMoveCardRight, fetchMoveCardLeft, fetchRemoveCard } from '../redux/cardsActions';
+import { fetchAddCard, fetchMoveCardRight, fetchMoveCardLeft, fetchRemoveCard } from '../redux/cards/actions';
+import { selectCards } from '../redux/cards/selectors';
+import { selectStatuses } from '../redux/statuses/selectors';
 
 function TaskBoardItem({ statusTitle, statusValue }) {
 	const dispatch = useDispatch();
+
 	const [isOpened, setIsOpened] = React.useState(false);
 
-	const tasks = useSelector(({ cardsReducer }) => cardsReducer.cards).filter(task => task.status === statusValue);
-	const statusTypes = useSelector(({ statusesReducer }) => statusesReducer.statuses).map(status => status.value);
+	const tasks = useSelector(selectCards).filter(task => task.status === statusValue);
+	const statusTypes = useSelector(selectStatuses).map(status => status.value);
 
-	function handleRemoveCard(id) {
-		dispatch(fetchRemoveCard(id));
-	}
-
+	console.log("rerender " + statusTitle);
 	function handleAddCard(title, description) {
 		dispatch(fetchAddCard(title, description, statusValue))
 	}
@@ -23,13 +23,17 @@ function TaskBoardItem({ statusTitle, statusValue }) {
 		setIsOpened(bool);
 	}
 
-	function handleMoveCardRight(card){
-		dispatch(fetchMoveCardRight(card, statusTypes));
-	}
+	const handleRemoveCard = React.useCallback((id) => {
+		dispatch(fetchRemoveCard(id));
+	}, []); // eslint-disable-line 
 
-	function handleMoveCardLeft(card){
+	const handleMoveCardRight = React.useCallback((card) => {
+		dispatch(fetchMoveCardRight(card, statusTypes));
+	}, []); // eslint-disable-line
+
+	const handleMoveCardLeft = React.useCallback((card) => {
 		dispatch(fetchMoveCardLeft(card, statusTypes));
-	}
+	}, []); // eslint-disable-line
 
 	return (
 		<div className={`task-board__item item-${statusValue}`}>
@@ -47,10 +51,10 @@ function TaskBoardItem({ statusTitle, statusValue }) {
 			</div>
 			{
 				tasks.map((task) => 
-						<TaskCard key={task.id} onRemoveCard = {() => handleRemoveCard(task.id)} task = {task} onMoveCardRight={() => handleMoveCardRight(task)} onMoveCardLeft={() => handleMoveCardLeft(task)}/>)
+						<TaskCard key={task.id} onRemoveCard = {handleRemoveCard} task = {task} onMoveCardRight={handleMoveCardRight} onMoveCardLeft={handleMoveCardLeft}/>)
 			}
 		</div>
 	);
 }
 
-export default TaskBoardItem;
+export default React.memo(TaskBoardItem);
